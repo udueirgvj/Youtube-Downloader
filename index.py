@@ -5,8 +5,9 @@ import yt_dlp
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/', methods=['GET', 'POST'])
-def handler():
+@app.route('/', defaults={'path': ''}, methods=['GET', 'POST'])
+@app.route('/<path:path>', methods=['GET', 'POST'])
+def handler(path):
     if request.method == 'GET':
         return jsonify({'status': 'ok', 'message': 'Youtube Downloader API is running'})
     
@@ -41,7 +42,6 @@ def handler():
                 'status': 'ok'
             })
     except yt_dlp.utils.DownloadError as e:
-        # غالبًا يوتيوب بيحجب IP السيرفر أو الرابط غير صالح
         return jsonify({'error': f'فشل استخراج الفيديو: {str(e)}'}), 502
     except Exception as e:
         return jsonify({'error': str(e)}), 500

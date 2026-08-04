@@ -5,8 +5,11 @@ import yt_dlp
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/download', methods=['POST'])
-def download():
+@app.route('/', methods=['GET', 'POST'])
+def handler():
+    if request.method == 'GET':
+        return jsonify({'status': 'ok', 'message': 'Youtube Downloader API is running'})
+    
     data = request.json
     url = data.get('url')
     

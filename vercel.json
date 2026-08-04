@@ -2,12 +2,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api/download"
+      "destination": "/api/index.py"
     }
-  ],
-  "functions": {
-    "api/download.py": {
-      "runtime": "python3.9"
-    }
-  }
+  ]
 }
